@@ -1,0 +1,2 @@
+﻿{"ResourceSpacePlugin":"simpleldap"}
+{"simpleldap":{"emailsuffix":"divdist.com", "domain":"divdist.com", "ldaptype":"1", "ldapserver":"192.168.1.19", "port":"389", "basedn":"cn=users,ou=groups,dc=divdist,dc=com", "loginfield":"mail", "usersuffix":"", "createusers":"1", "ldapgroupfield":"gidNumber", "email_attribute":"mail", "phone_attribute":"", "update_group":"0", "create_new_match_email":"1", "allow_duplicate_email":"0", "notification_email":"", "fallbackusergroup":"2"}}
