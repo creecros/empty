@@ -16,8 +16,7 @@
 */
 
 function simpleldap_authenticate($username,$password){
-	$binder = 'cn=admin,dc=divdist,dc=com'
-	$binderpass = 'Ink*2151Summers1!'	
+	
 	if (!function_exists('ldap_connect')){return false;}
 	// given a username and password, return false if not authenticated, or 
 	// associative array of displayname, username, e-mail, group if valid
@@ -54,7 +53,7 @@ function simpleldap_authenticate($username,$password){
 		foreach ($binddomains as $binddomain)
 			{
 			debug("LDAP - Attempting to bind to LDAP server as : " . $username . "@" .  $binddomain);
-			$login = @ldap_bind( $ds, $binder, $binderpass );
+			$login = @ldap_bind( $ds, 'cn=admin,dc=divdist,dc=com', 'Ink*2151Summers1!' );
 			if (!$login){continue;}else{$userdomain=$binddomain;break;}
 			}
 		if (!$login){debug("LDAP - failed to bind to LDAP server");	return false; }
@@ -92,14 +91,14 @@ function simpleldap_authenticate($username,$password){
 		
 		if(!isset($simpleldap['ldaptype']) || $simpleldap['ldaptype']==1) 
 			{
-			$binduserstring = $binder;
+			$binduserstring = 'cn=admin,dc=divdist,dc=com';
 			}
 		else
 			{
 			$binduserstring = $simpleldap['loginfield'] . "=" . $username . "," . $simpleldap['basedn'];
 			}
 		debug("LDAP - binding as " . $binduserstring);
-		if(!(@ldap_bind($ldapconnections[$x], $binduserstring, $binderpass ))){continue;}
+		if(!(@ldap_bind($ldapconnections[$x], $binduserstring, 'Ink*2151Summers1!' ))){continue;}
 		
 		debug("LDAP - searching " . $dn[$x] . " as " . $binduserstring);
 		
