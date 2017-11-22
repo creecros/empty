@@ -17,8 +17,7 @@
 
 function simpleldap_authenticate($username,$password){
 	
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+
 	$ldapconfig['host'] = '192.168.1.19';//CHANGE THIS TO THE CORRECT LDAP SERVER
 	$ldapconfig['port'] = '389';
 	$ldapconfig['basedn'] = 'ou=groups,dc=divdist,dc=com';//CHANGE THIS TO THE CORRECT BASE DN
@@ -28,13 +27,12 @@ function simpleldap_authenticate($username,$password){
 	ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
 	ldap_set_option($ds, LDAP_OPT_NETWORK_TIMEOUT, 10);
 	$dn="uid=".$username.",".$ldapconfig['usersdn'].",".$ldapconfig['basedn'];
-	if(isset($_POST['username'])){
 		if ($bind=ldap_bind($ds, $dn, $password)) {
 		  echo("Login correct");//REPLACE THIS WITH THE CORRECT FUNCTION LIKE A REDIRECT;
 		} else {
 		 echo "Login Failed: Please check your username or password";
 		}
-	}
+	
 		
 		$return['domain'] = $userdomain;
 		$return['username'] = $username;
