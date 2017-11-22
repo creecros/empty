@@ -16,7 +16,6 @@
 */
 
 function simpleldap_authenticate($username,$password){
-	
 
 	$ldapconfig['host'] = '192.168.1.19';//CHANGE THIS TO THE CORRECT LDAP SERVER
 	$ldapconfig['port'] = '389';
@@ -28,20 +27,18 @@ function simpleldap_authenticate($username,$password){
 	ldap_set_option($ds, LDAP_OPT_NETWORK_TIMEOUT, 10);
 	$dn="uid=".$username.",".$ldapconfig['usersdn'].",".$ldapconfig['basedn'];
 		if ($bind=ldap_bind($ds, $dn, $password)) {
-		  echo("Login correct");//REPLACE THIS WITH THE CORRECT FUNCTION LIKE A REDIRECT;
+		  	$result = ldap_search($ds, $dn);
+			$data = ldap_get_entries($ds, $result);
 		} else {
 		 echo "Login Failed: Please check your username or password";
 		}
 	
 		
-		$return['domain'] = $userdomain;
-		$return['username'] = $username;
-		$return['binduser'] = $binduserstring;
-		$return['displayname'] = $displayname;
-		$return['group'] = $department;
-		$return['email'] = $email;
-		$return['phone'] = $phone;
-		$return['memberof'] = $usermemberof;
+		$return['domain'] = $data['dn'];
+		$return['username'] = $data['uid'];
+		$return['displayname'] = $data['cn'];
+		$return['group'] = $data['ou'];
+		$return['email'] = $data['mail'];
 		return $return;
 
 	}
