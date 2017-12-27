@@ -1,0 +1,1 @@
+0 */2 * * * php /var/www/Keepstar/cron.php
